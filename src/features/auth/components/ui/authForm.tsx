@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../providers/useAuth";
 import { useNavigate } from "react-router-dom";
-import Button from "@/shared/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import Input from "@/shared/components/ui/input";
 
 type AuthFormProps = { type: "login" | "register" };
