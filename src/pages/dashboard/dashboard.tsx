@@ -36,7 +36,7 @@ export default function Dashboard() {
 					onSubmit={fetchPosts}
 					onNewTag={(tag) => setAvailableTags((t) => [...t, tag])}
 				/>
-				<PostTable posts={posts} />
+				<PostTable posts={posts} fetchPosts={fetchPosts} />
 			</main>
 		</div>
 	);

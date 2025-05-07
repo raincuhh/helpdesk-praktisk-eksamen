@@ -103,7 +103,7 @@ const AuthForm = ({ type }: AuthFormProps): React.JSX.Element => {
 					/>
 				</>
 			)}
-			<Button type="submit" disabled={loading} variant={"base"} size={"lg"} rounded={"full"}>
+			<Button type="submit" disabled={loading} size={"lg"}>
 				{loading ? "Laster..." : type === "login" ? "Logg inn" : "Registrer"}
 			</Button>
 			{error && <p className="text-text-error">{error}</p>}

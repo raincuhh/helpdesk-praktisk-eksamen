@@ -72,8 +72,8 @@ export default function PostForm({ userId, tags, onSubmit, onNewTag }: Props) {
 					onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as "open" | "closed" }))}
 					className="w-full p-2 border"
 				>
-					<Option value="open">åpen</Option>
-					<Option value="closed">lukket</Option>
+					<Option value="open">Åpen</Option>
+					<Option value="closed">Lukket</Option>
 				</Select>
 
 				<TagSelector
@@ -86,7 +86,7 @@ export default function PostForm({ userId, tags, onSubmit, onNewTag }: Props) {
 				/>
 
 				<Button onClick={submitTicket} className="mt-4">
-					Submit Post
+					Legg til Post
 				</Button>
 			</div>
 		</div>
