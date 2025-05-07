@@ -3,6 +3,10 @@ import { Button } from "@/shared/components/ui/button";
 import { supabase } from "@/shared/lib/supabase";
 import { Post, Tag } from "@/shared/types";
 import TagSelector from "./tagSelector";
+import Input from "@/shared/components/ui/input";
+import Select from "@/shared/components/ui/select";
+import Textarea from "@/shared/components/ui/textArea";
+import Option from "@/shared/components/ui/option";
 
 type Props = {
 	userId: string;
@@ -17,6 +21,11 @@ export default function PostForm({ userId, tags, onSubmit, onNewTag }: Props) {
 	const [newTag, setNewTag] = useState("");
 
 	async function submitTicket() {
+		if (!form.title) {
+			alert("Tittel trengs!");
+			return;
+		}
+
 		const { data: post, error } = await supabase
 			.from("posts")
 			.insert([{ ...form, user_id: userId }])
@@ -40,31 +49,32 @@ export default function PostForm({ userId, tags, onSubmit, onNewTag }: Props) {
 
 	return (
 		<div className="p-6 space-y-6">
-			<h2 className="text-xl font-semibold">Create New Post</h2>
+			<h2 className="text-xl font-semibold">Lag ny Post</h2>
 
 			<div className="space-y-4">
-				<input
-					placeholder="Post Title"
+				<Input
+					placeholder="Post Tittel*"
 					value={form.title}
 					onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
 					className="w-full p-2 border rounded"
+					required
 				/>
 
-				<textarea
-					placeholder="Post Message"
+				<Textarea
+					placeholder="Post Melding"
 					value={form.message}
 					onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-					className="w-full p-2 border rounded min-h-[120px]"
+					className="w-full p-2 border min-h-[120px]"
 				/>
 
-				<select
+				<Select
 					value={form.status}
 					onChange={(e) => setForm((f) => ({ ...f, status: e.target.value as "open" | "closed" }))}
-					className="w-full p-2 border rounded"
+					className="w-full p-2 border"
 				>
-					<option value="open">Open</option>
-					<option value="closed">Closed</option>
-				</select>
+					<Option value="open">åpen</Option>
+					<Option value="closed">lukket</Option>
+				</Select>
 
 				<TagSelector
 					tags={tags}

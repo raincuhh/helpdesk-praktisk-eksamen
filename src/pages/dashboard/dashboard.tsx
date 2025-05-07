@@ -27,9 +27,9 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className="grid grid-cols-[240px_1fr] min-h-screen text-[--foreground]">
+		<div className="grid grid-cols-[240px_1fr] min-h-screen h-[100dvh] overflow-hidden">
 			<Sidebar />
-			<main className="p-8 space-y-8">
+			<main className="p-8 space-y-8 overflow-y-scroll flex flex-col flex-grow">
 				<PostForm
 					userId={user?.id ?? ""}
 					tags={availableTags}
