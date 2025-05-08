@@ -26,7 +26,7 @@ export type Post = {
 	user_id: string;
 	title?: string;
 	message?: string;
-	status?: "open" | "closed" | "waiting";
+	status?: "open" | "closed";
 	created_at?: string;
 	updated_at?: string;
 };

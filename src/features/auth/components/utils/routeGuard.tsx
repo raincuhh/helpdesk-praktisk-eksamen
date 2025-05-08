@@ -16,6 +16,9 @@ const RouteGuard = ({ children, type }: RouteGuardProps): React.JSX.Element => {
 		if (loading) return;
 
 		switch (type) {
+			case RouteTypes.private:
+				if (user && user.role !== "specialist") navigate("/unauthorized", { replace: true });
+				break;
 			case RouteTypes.auth:
 				if (user) navigate("/dashboard", { replace: true });
 				break;
