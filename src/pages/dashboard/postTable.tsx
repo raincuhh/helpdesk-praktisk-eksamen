@@ -14,6 +14,7 @@ export default function PostTable({ posts, fetchPosts }: { posts: Post[]; fetchP
 	const [activeTag, setActiveTag] = useState<string | null>(null);
 	const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
+	// unik set med alle tags
 	const allTags = Array.from(new Set(postsWithTags.flatMap((post) => post.tags?.map((t) => t.name) || [])));
 
 	const filteredPosts = activeTag
@@ -22,12 +23,14 @@ export default function PostTable({ posts, fetchPosts }: { posts: Post[]; fetchP
 
 	async function fetchTagsForPosts() {
 		const { data: postTags, error } = await supabase.from("post_tags").select("post_id, tag_id");
+		//basically resolver til SELECT post_id, tag_id FROM post_tags.
 
 		if (error) {
 			console.error("Error fetching post_tags:", error);
 			return;
 		}
 
+		// for å mappe post ids til tags som er satt på posten.
 		const postTagMapping: Record<string, string[]> = postTags.reduce((acc, postTag) => {
 			if (!acc[postTag.post_id]) acc[postTag.post_id] = [];
 			acc[postTag.post_id].push(postTag.tag_id);
@@ -180,19 +183,17 @@ export default function PostTable({ posts, fetchPosts }: { posts: Post[]; fetchP
 									Actions
 								</Button>
 								{selectedRow === entry.id && (
-									<div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 shadow-lg rounded-md z-10">
-										<button
-											className="w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
-											onClick={() => handleEdit(entry)}
-										>
+									<div className="absolute right-0 mt-2 w-40 p-1 gap-1 flex flex-col bg-primary-foreground border border-border shadow-lg rounded-md z-10">
+										<Button variant="ghost" className="w-full" onClick={() => handleEdit(entry)}>
 											Edit
-										</button>
-										<button
-											className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-100"
+										</Button>
+										<Button
+											variant="destructive"
+											className="w-full"
 											onClick={() => handleDelete(entry.id)}
 										>
 											Delete
-										</button>
+										</Button>
 									</div>
 								)}
 							</div>

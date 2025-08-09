@@ -37,6 +37,7 @@ export default function Dashboard() {
 					onNewTag={(tag) => setAvailableTags((t) => [...t, tag])}
 				/>
 				<PostTable posts={posts} fetchPosts={fetchPosts} />
+				<footer className="py-4 w-full ">helpdesk</footer>
 			</main>
 		</div>
 	);
